@@ -1,5 +1,5 @@
 <?php
-
+require_once('db.php');
 $con = mysqli_connect("localhost", "cole", "Bears!123", "pixelfit");
 
 function registerUser($email, $first_name, $last_name, $user_name, $password) {
@@ -18,7 +18,6 @@ class character extends user{
 	var $agility;
 	var $intelligence;
 	var $dexterity;
-	var $vitality;
 	var $strength;
 	var $willpower;
 	
@@ -53,6 +52,7 @@ function login($username, $password, $connection) {
 		if($row['enabled'] = 1){
 			$salt = $row['salt'];
 			$system_password = $row['password'];
+			$user_id = $row['user_id'];
 			continue;
 		} else {
 			echo 'This account is disabled';
@@ -67,9 +67,10 @@ function login($username, $password, $connection) {
 			if (!session_id()) {
 				session_start();
 				$_SESSION['name'] = $username;
+				$_SESSION['session_id'] = $user_id;
 				$_SESSION['logon'] = true;
 
-				header('Refresh: 0.05;url=../index.php');
+				header('Refresh: 0.05;url=./index.php?user_id=' . $user_id);
 			}
 		} else {
 			echo $system_password;
@@ -80,6 +81,32 @@ function login($username, $password, $connection) {
 
 }
 
-?>
+function listCharacters($connection, $user_id){
+	$query = "SELECT character_name, character_class, c.character_id, agility, dexterity, intelligence, strength, willpower
+             FROM characters c, users u, users_characters uc
+             WHERE u.user_id='" . $user_id . "' AND uc.character_id = c.character_id";
+	
+
+	$results = mysqli_query($connection, $query);
+	
+	
+	while($row = mysqli_fetch_assoc($results)) {
+		echo '<div id="character"><ul><li><table>';
+		echo '<h3>' . $row['character_name'] . ' : ';
+		echo '<span>' . $row['character_class'] . '</span></h3><br />';
+		echo '<tr><th>Agility:</th><td> ' . $row['agility'] . '</td><td rowspan="5"><img src="./images/' . $row['character_class'] . '.png"</tr>'; 
+		echo '<tr><th>Dexterity: </th><td>' . $row['dexterity'] . '</td></tr>';
+		echo '<tr><th>Intelligence: </th><td>' . $row['intelligence'] . '</td></tr>';
+		echo '<tr><th>Strength: </th><td>' . $row['strength'] . '</td></tr>';
+		echo '<tr><th>Willpower: </th><td>' . $row['willpower'] . '</td></tr>';
+		
+	}
+	echo '</div></ul></li></table>';
+	
+	$count = mysqli_num_rows($results);
+	if($count = 0) {
+		echo 'You don\'t have any characters, would you like to create one?';
+	}
+}
 
 ?>
