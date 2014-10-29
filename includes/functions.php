@@ -82,7 +82,7 @@ function login($username, $password, $connection) {
 }
 
 function listCharacters($connection, $user_id){
-	$query = "SELECT character_name, character_class, c.character_id, agility, dexterity, intelligence, strength, willpower
+	$query = "SELECT character_name, character_class, c.character_id, gender, agility, dexterity, intelligence, strength, willpower
              FROM characters c, users u, users_characters uc
              WHERE u.user_id='" . $user_id . "' AND uc.character_id = c.character_id";
 	
@@ -94,7 +94,7 @@ function listCharacters($connection, $user_id){
 		echo '<div id="character"><ul><li><table>';
 		echo '<h3>' . $row['character_name'] . ' : ';
 		echo '<span>' . $row['character_class'] . '</span></h3><br />';
-		echo '<tr><th>Agility:</th><td> ' . $row['agility'] . '</td><td rowspan="5"><img src="./images/' . $row['character_class'] . '.png"</tr>'; 
+		echo '<tr><th>Agility:</th><td> ' . $row['agility'] . '</td><td rowspan="5"><img src="./images/' . $row['gender'] . $row['character_class'] . '.png"</tr>'; 
 		echo '<tr><th>Dexterity: </th><td>' . $row['dexterity'] . '</td></tr>';
 		echo '<tr><th>Intelligence: </th><td>' . $row['intelligence'] . '</td></tr>';
 		echo '<tr><th>Strength: </th><td>' . $row['strength'] . '</td></tr>';
