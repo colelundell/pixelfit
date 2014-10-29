@@ -42,16 +42,8 @@ body {
 	width: 960px;
 	z-index: 5;
 }
-#header a.logo {
-	display: block;
-	margin: 0 auto;
-	padding: 0;
-	width: 540px;
-}
-#header a.logo img {
-	border: 0;
-	display: block;
-}
+
+
 #header ul {
 	background: url(../images/bg-navigation.png) no-repeat center center;
 	bottom: -107px;

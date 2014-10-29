@@ -88,6 +88,11 @@ function listCharacters($connection, $user_id){
 	
 
 	$results = mysqli_query($connection, $query);
+	$count = mysqli_num_rows($results);
+
+	if($count === 0){
+		echo '<div id="character"><ul><li><table>You haven\'t created a character yet, would you like to?</div></ul></li></table>';
+	}
 	
 	
 	while($row = mysqli_fetch_assoc($results)) {
@@ -100,13 +105,11 @@ function listCharacters($connection, $user_id){
 		echo '<tr><th>Strength: </th><td>' . $row['strength'] . '</td></tr>';
 		echo '<tr><th>Willpower: </th><td>' . $row['willpower'] . '</td></tr>';
 		
+
 	}
 	echo '</div></ul></li></table>';
 	
-	$count = mysqli_num_rows($results);
-	if($count = 0) {
-		echo 'You don\'t have any characters, would you like to create one?';
-	}
+	
 }
 
 ?>

@@ -3,7 +3,7 @@ require_once('header.php');
 ?>
 
 <div>
-	<div class="games">
+	<div>
 
 
 				

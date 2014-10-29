@@ -3,10 +3,13 @@ require_once('header.php');
 ?>
 
 <div>
+
 	<div class="media">
 		<div>
+		
 		</div>
 		<div class="article">
+			
 			<h3>this is just a place holder</h3>
 			<ul>
 				<li>							

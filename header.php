@@ -14,7 +14,7 @@ require_once('/includes/functions.php');
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Games - Game Website Template</title>
+	<title>Pixel Fitness</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 <body>
@@ -22,7 +22,6 @@ require_once('/includes/functions.php');
 		<div id="header">
 			<div>
 				<div>
-					<a href="index.html" class="logo"><img src="images/logo.png" alt=""></a>
 					<ul>
 						<li>
 							<?php echo '<a href="index.php?user_id='. $_SESSION['session_id'] . '" id="menu1">home</a>';?>
@@ -34,14 +33,13 @@ require_once('/includes/functions.php');
 							<?php echo '<a href="games.php?user_id='. $_SESSION['session_id'] . '" id="menu3">games</a>';?>
 						</li>
 						<li>
-							<a href="about.php" id="menu4">about</a>
+							<?php echo '<a href="about.php?user_id='. $_SESSION['session_id'] . '" id="menu4">about</a>';?>
 						</li>
 						<li>
-							<a href="blog.php" id="menu5">blog</a>
+							<?php echo '<a href="blog.php?user_id='. $_SESSION['session_id'] . '" id="menu5">blog</a>';?>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div id="body">
-		<?php echo $_SESSION['session_id']?>
