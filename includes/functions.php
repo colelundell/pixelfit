@@ -81,6 +81,7 @@ function login($username, $password, $connection) {
 
 }
 
+//List all characters
 function listCharacters($connection, $user_id){
 	$query = "SELECT character_name, character_class, c.character_id, gender, agility, dexterity, intelligence, strength, willpower
              FROM characters c, users u, users_characters uc
@@ -96,7 +97,7 @@ function listCharacters($connection, $user_id){
 	
 	
 	while($row = mysqli_fetch_assoc($results)) {
-		echo '<div id="character"><ul><li><table>';
+		echo '<div id="character"><table>';
 		echo '<h3>' . $row['character_name'] . ' : ';
 		echo '<span>' . $row['character_class'] . '</span></h3><br />';
 		echo '<tr><th>Agility:</th><td> ' . $row['agility'] . '</td><td rowspan="5"><img src="./images/' . $row['gender'] . $row['character_class'] . '.png"</tr>'; 
@@ -104,12 +105,25 @@ function listCharacters($connection, $user_id){
 		echo '<tr><th>Intelligence: </th><td>' . $row['intelligence'] . '</td></tr>';
 		echo '<tr><th>Strength: </th><td>' . $row['strength'] . '</td></tr>';
 		echo '<tr><th>Willpower: </th><td>' . $row['willpower'] . '</td></tr>';
-		
 
 	}
-	echo '</div></ul></li></table>';
-	
-	
+	echo '</div></table><br />';
 }
 
+//Create new character
+if(isset($_POST['create_character'])){
+		$query = "INSERT INTO characters(character_name, character_class, gender) 
+				  VALUES('" . $_POST['character_name'] . "', '" . $_POST['character_class'] . "', '" . $_POST['gender'] . "')";
+		$user_id = $_GET['user_id'];
+		
+		$results = mysqli_query($connection, $query);
+		$character_id = mysqli_insert_id($connection);
+		
+		$join = "INSERT INTO users_characters (character_id, user_id) 
+				 VALUES(" . $character_id . ", " . $user_id . ")";
+		$join_results = mysqli_query($connection, $join);	
+		header('Location: index.php?user_id=' . $user_id );
+}
+
+	
 ?>
